@@ -16,8 +16,17 @@ class PasswordDetails extends Component {
     appUrl: '',
     category: 1, // Site
     username: '',
-    password: ''
+    password: '',
+    isSaving: false
   };
+
+  componentDidMount() {
+    console.log('Mounted');
+    if (!this.isNew()) {
+      console.log('Setting State: ', this.getId());
+      this.setState(AzkabanService.getPassword(this.getId()));
+    }
+  }
 
   handleValueChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -28,13 +37,18 @@ class PasswordDetails extends Component {
   };
 
   save() {
+    this.setState({ isSaving: true });
     if (this.isNew()) {
-      AzkabanService.addPassword(this.state);
+      AzkabanService.addPassword(this.state).then(() => {
+        this.setState({ isSaving: false });
+        this.navigateToPasswords();
+      });
     } else {
-      AzkabanService.updatePassword(this.getId(), this.state);
+      AzkabanService.updatePassword(this.getId(), this.state).then(() => {
+        this.setState({ isSaving: false });
+        this.navigateToPasswords();
+      });
     }
-
-    this.navigateToPasswords();
   }
 
   cancel() {
@@ -55,6 +69,7 @@ class PasswordDetails extends Component {
 
   render() {
     const isNew = this.isNew();
+    const { isSaving } = this.state;
 
     return (
       <div style={{ marginLeft: 25, marginRight: 25 }}>
@@ -160,7 +175,10 @@ class PasswordDetails extends Component {
                       color="primary"
                       onClick={() => this.save()}
                     >
-                      Add
+                      {!isSaving && (
+                        <Icon style={{ marginRight: 10 }}>circle</Icon>
+                      )}
+                      {!isSaving && <div> {isNew ? 'Add' : 'Save'} </div>}
                     </Button>
                   </Grid>
                 </Grid>
