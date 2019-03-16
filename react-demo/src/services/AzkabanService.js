@@ -7,6 +7,8 @@ export class AzkabanService {
     { id: 4, name: 'Other' }
   ];
 
+  static passwords = [];
+
   static signIn(username, password) {
     return AzkabanService.wait(2000).then(
       () =>
@@ -22,5 +24,17 @@ export class AzkabanService {
 
   static wait(timeInMilliseconds) {
     return new Promise(resolve => setTimeout(resolve, timeInMilliseconds));
+  }
+
+  static addPassword(password) {
+    AzkabanService.passwords.push(password);
+  }
+
+  static updatePassword(id, password) {
+    let existingPassword = AzkabanService.passwords.find(
+      password => password.id === id
+    );
+    let index = AzkabanService.passwords.indexOf(existingPassword);
+    AzkabanService.passwords[index] = password;
   }
 }

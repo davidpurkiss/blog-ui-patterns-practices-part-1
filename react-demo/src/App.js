@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import SignIn from './components/SignIn';
 import PasswordManager from './components/PasswordManager';
+import PasswordDetails from './components/PasswordDetails';
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
         <div>
           <Route exact path="/" component={SignIn} />
           <Route path="/passwords" component={PasswordManager} />
+          <Route path="/password/:id?" component={PasswordDetails} />
         </div>
       </Router>
     );

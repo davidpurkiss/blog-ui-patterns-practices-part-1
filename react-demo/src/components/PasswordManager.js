@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,6 +15,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
 
 class PasswordManager extends Component {
   state = {
@@ -23,67 +25,114 @@ class PasswordManager extends Component {
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  addNewPassword() {
+    this.props.history.push('/password');
+  }
+
+  editExistingPassword(id) {
+    this.props.history.push(`/password/${id}`);
+  }
+
   render() {
     return (
-      <div style={{ marginLeft: 25, marginRight: 25 }}>
-        <Grid
-          container
-          direction="row"
-          style={{ marginTop: 50 }}
-          alignItems="center"
-          justify="space-between"
-        >
-          <Grid item xs={10}>
-            <FormControl style={{ minWidth: 120 }}>
-              <InputLabel htmlFor="category-simple">Category</InputLabel>
-              <Select
-                value={this.state.selectedCategory}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'selectedCategory',
-                  id: 'category-simple'
-                }}
-              >
-                {AzkabanService.categories.map(category => (
-                  <MenuItem key={category.id} value={category}>
-                    {category.name}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>
-                View passwords in specific categories.
-              </FormHelperText>
-            </FormControl>
-          </Grid>
-          <Grid item xs={2}>
-            <Button variant="contained" color="primary">
-              <Icon style={{ marginRight: 10 }}>add</Icon>
-              Add
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <Divider style={{ marginTop: 15 }} />
-            <List dense={false}>
-              <ListItem>
-                <ListItemText primary="Amazon" secondary="Category: Sites" />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="View">
-                    <Icon>filter_none</Icon>
-                  </IconButton>
-                  <IconButton aria-label="Edit">
-                    <Icon>edit</Icon>
-                  </IconButton>
-                  <IconButton aria-label="Delete">
-                    <Icon>delete</Icon>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </Grid>
+      <Grid container direction="row" justify="center">
+        <Grid item xs={12} sm={11} md={10} lg={8} xl={6}>
+          <div style={{ marginLeft: 25, marginRight: 25 }}>
+            <Grid
+              container
+              direction="row"
+              style={{ marginTop: 50 }}
+              alignItems="center"
+              justify="space-between"
+              spacing={24}
+            >
+              <Grid item xs={12}>
+                <Grid
+                  container
+                  direction="row"
+                  justify="flex-start"
+                  alignItems="center"
+                  spacing={16}
+                >
+                  <Grid item>
+                    <Icon fontSize="large">shield</Icon>
+                  </Grid>
+                  <Grid item>
+                    <Typography component="h2" variant="title">
+                      Passwords
+                    </Typography>
+                    <Typography component="h2" variant="subheading">
+                      View and Manage all your passwords
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid item>
+                <FormControl style={{ minWidth: 120 }}>
+                  <InputLabel htmlFor="category-simple">Category</InputLabel>
+                  <Select
+                    value={this.state.selectedCategory}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: 'selectedCategory',
+                      id: 'category-simple'
+                    }}
+                  >
+                    {AzkabanService.categories.map(category => (
+                      <MenuItem key={category.id} value={category}>
+                        {category.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText>
+                    View passwords in specific categories.
+                  </FormHelperText>
+                </FormControl>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => this.addNewPassword()}
+                >
+                  <Icon style={{ marginRight: 10 }}>add</Icon>
+                  Add
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Divider style={{ marginTop: 15 }} />
+                <List dense={false}>
+                  {AzkabanService.passwords.map(password => (
+                    <ListItem>
+                      <ListItemText
+                        primary={password.appName}
+                        secondary={password.appUrl}
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton aria-label="View">
+                          <Icon>filter_none</Icon>
+                        </IconButton>
+                        <IconButton
+                          aria-label="Edit"
+                          onClick={() => this.editExistingPassword(password.id)}
+                        >
+                          <Icon>edit</Icon>
+                        </IconButton>
+                        <IconButton aria-label="Delete">
+                          <Icon>delete</Icon>
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              </Grid>
+            </Grid>
+          </div>
         </Grid>
-      </div>
+      </Grid>
     );
   }
 }
 
-export default PasswordManager;
+export default withRouter(PasswordManager);
