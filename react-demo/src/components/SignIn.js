@@ -56,8 +56,14 @@ class SignIn extends Component {
     const { signInState, error } = this.state;
 
     return (
-      <div className="App">
-        <header className="App-header" style={{ marginTop: 50 }}>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        style={{ marginTop: 50, textAlign: 'center' }}
+        spacing={16}
+      >
+        <Grid item>
           <Typography component="h2" variant="display1">
             Welcome to {title}!
           </Typography>
@@ -67,147 +73,136 @@ class SignIn extends Component {
             alt="logo"
             style={{ marginTop: 25 }}
           />
-        </header>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          style={{ marginTop: 50 }}
-        >
-          {signInState === SIGN_IN_STATE_READY && (
-            <Fragment>
-              <Grid item xl={2} lg={4} md={4} sm={6} xs={8}>
-                <Grid item>
-                  <form autoComplete="off">
-                    <TextField
-                      label="Email Address"
-                      value={this.state.email}
-                      onChange={this.handleValueChange('email')}
-                      type="email"
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <i className="material-icons">email</i>
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <TextField
-                      label="Password"
-                      value={this.state.password}
-                      onChange={this.handleValueChange('password')}
-                      type="password"
-                      fullWidth
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Icon>lock</Icon>
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={this.state.rememberMe}
-                          onChange={this.handleCheckedChange('rememberMe')}
-                          value="rememberMe"
-                          color="primary"
-                        />
-                      }
-                      label="Remember Me"
-                    />
-                  </form>
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid item>
-                  <a href="#reset">Forgot your password?</a> (Use user:pass)
-                </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  style={{ marginTop: 25, marginBottom: 50 }}
-                  onClick={() => this.signIn()}
-                >
-                  <Icon style={{ marginRight: 10 }}>security</Icon>
-                  Sign In
-                </Button>
-              </Grid>
-            </Fragment>
-          )}
-          {signInState === SIGN_IN_STATE_IN_PROGRESS && (
-            <Fragment>
-              <Grid item xs={12}>
-                <CircularProgress />
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h3" variant="title">
-                  Your are being signed in.
-                </Typography>
-                <Typography component="h4" variant="subheading">
-                  Please wait...
-                </Typography>
-              </Grid>
-            </Fragment>
-          )}
-          {signInState === SIGN_IN_STATE_ERROR && (
-            <Fragment>
-              <Grid item xs={12}>
-                <Icon
-                  color="error"
-                  fontSize="large"
-                  style={{ marginRight: 10 }}
-                >
-                  error
-                </Icon>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h3" variant="title">
-                  {error}
-                </Typography>
-                <Typography component="h4" variant="subheading">
-                  Please try again or <a href="#reset">reset your password</a>.
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  style={{ marginTop: 25, marginBottom: 50 }}
-                  onClick={() =>
-                    this.setState({ signInState: SIGN_IN_STATE_READY })
-                  }
-                >
-                  Try again
-                </Button>
-              </Grid>
-            </Fragment>
-          )}
-          {signInState === SIGN_IN_STATE_SUCCESS && (
-            <Fragment>
-              <Grid item xs={12}>
-                <Icon
-                  color="primary"
-                  fontSize="large"
-                  style={{ marginRight: 10 }}
-                >
-                  check_circle_outline
-                </Icon>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography component="h3" variant="title">
-                  You have signed in successfully.
-                </Typography>
-                <Typography component="h4" variant="subheading">
-                  You're on the way to managing your passwords.
-                </Typography>
-              </Grid>
-            </Fragment>
-          )}
         </Grid>
-      </div>
+        {signInState === SIGN_IN_STATE_READY && (
+          <Fragment>
+            <Grid item xl={2} lg={4} md={4} sm={6} xs={8}>
+              <Grid item>
+                <form autoComplete="off">
+                  <TextField
+                    label="Email Address"
+                    value={this.state.email}
+                    onChange={this.handleValueChange('email')}
+                    type="email"
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <i className="material-icons">email</i>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <TextField
+                    label="Password"
+                    value={this.state.password}
+                    onChange={this.handleValueChange('password')}
+                    type="password"
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Icon>lock</Icon>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={this.state.rememberMe}
+                        onChange={this.handleCheckedChange('rememberMe')}
+                        value="rememberMe"
+                        color="primary"
+                      />
+                    }
+                    label="Remember Me"
+                  />
+                </form>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid item>
+                <a href="#reset">Forgot your password?</a> (Use user:pass)
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ marginBottom: 50 }}
+                onClick={() => this.signIn()}
+              >
+                <Icon style={{ marginRight: 10 }}>security</Icon>
+                Sign In
+              </Button>
+            </Grid>
+          </Fragment>
+        )}
+        {signInState === SIGN_IN_STATE_IN_PROGRESS && (
+          <Fragment>
+            <Grid item xs={12}>
+              <CircularProgress />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h3" variant="title">
+                You are being signed in.
+              </Typography>
+              <Typography component="h4" variant="subheading">
+                Please wait...
+              </Typography>
+            </Grid>
+          </Fragment>
+        )}
+        {signInState === SIGN_IN_STATE_ERROR && (
+          <Fragment>
+            <Grid item xs={12}>
+              <Icon color="error" fontSize="large" style={{ marginRight: 10 }}>
+                error
+              </Icon>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h3" variant="title">
+                {error}
+              </Typography>
+              <Typography component="h4" variant="subheading">
+                Please try again or <a href="#reset">reset your password</a>.
+              </Typography>
+              <Button
+                variant="contained"
+                color="secondary"
+                style={{ marginTop: 25, marginBottom: 50 }}
+                onClick={() =>
+                  this.setState({ signInState: SIGN_IN_STATE_READY })
+                }
+              >
+                Try again
+              </Button>
+            </Grid>
+          </Fragment>
+        )}
+        {signInState === SIGN_IN_STATE_SUCCESS && (
+          <Fragment>
+            <Grid item xs={12}>
+              <Icon
+                color="primary"
+                fontSize="large"
+                style={{ marginRight: 10 }}
+              >
+                check_circle_outline
+              </Icon>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component="h3" variant="title">
+                You have signed in successfully.
+              </Typography>
+              <Typography component="h4" variant="subheading">
+                You're on the way to managing your passwords.
+              </Typography>
+            </Grid>
+          </Fragment>
+        )}
+      </Grid>
     );
   }
 }
