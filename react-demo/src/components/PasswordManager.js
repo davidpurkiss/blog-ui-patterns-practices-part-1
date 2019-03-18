@@ -38,6 +38,10 @@ class PasswordManager extends Component {
     this.props.history.push(`/password/${id}`);
   }
 
+  deleteExistingPassword(id) {}
+
+  copyPasswordToClipboard(id) {}
+
   componentDidMount() {
     this.setState({ isLoadingPasswords: true });
     AzkabanService.getPasswords()
@@ -56,121 +60,127 @@ class PasswordManager extends Component {
     return (
       <Grid container direction="row" justify="center">
         <Grid item xs={12} sm={11} md={10} lg={8} xl={6}>
-          <div style={{ marginLeft: 25, marginRight: 25 }}>
-            <Grid
-              container
-              direction="row"
-              style={{ marginTop: 50 }}
-              alignItems="center"
-              justify="space-between"
-              spacing={24}
-            >
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction="row"
-                  justify="flex-start"
-                  alignItems="center"
-                  spacing={16}
-                >
-                  <Grid item>
-                    <Icon fontSize="large">shield</Icon>
-                  </Grid>
-                  <Grid item>
-                    <Typography component="h2" variant="title">
-                      Passwords
-                    </Typography>
-                    <Typography component="h2" variant="subheading">
-                      View and Manage all your passwords
-                    </Typography>
-                  </Grid>
+          <Grid
+            container
+            direction="row"
+            style={{ marginTop: 50, marginLeft: 25, marginRight: 25 }}
+            alignItems="center"
+            justify="space-between"
+            spacing={24}
+          >
+            <Grid item xs={12}>
+              <Grid
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="center"
+                spacing={16}
+              >
+                <Grid item>
+                  <Icon fontSize="large">shield</Icon>
+                </Grid>
+                <Grid item>
+                  <Typography component="h2" variant="title">
+                    Passwords
+                  </Typography>
+                  <Typography component="h2" variant="subheading">
+                    View and Manage all your passwords
+                  </Typography>
                 </Grid>
               </Grid>
-              <Grid item>
-                <FormControl style={{ minWidth: 120 }}>
-                  <InputLabel htmlFor="category-simple">Category</InputLabel>
-                  <Select
-                    value={this.state.selectedCategory}
-                    onChange={this.handleChange}
-                    inputProps={{
-                      name: 'selectedCategory',
-                      id: 'category-simple'
-                    }}
-                  >
-                    {AzkabanService.categories.map(category => (
-                      <MenuItem key={category.id} value={category}>
-                        {category.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <FormHelperText>
-                    View passwords in specific categories.
-                  </FormHelperText>
-                </FormControl>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => this.addNewPassword()}
-                >
-                  <Icon style={{ marginRight: 10 }}>add_circle</Icon>
-                  Add
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Divider style={{ marginTop: 15 }} />
-                {isLoadingPasswords && (
-                  <Grid
-                    container
-                    justify="center"
-                    style={{ textAlign: 'center', marginTop: 15 }}
-                  >
-                    <Grid item xs={12}>
-                      <CircularProgress />
-                    </Grid>
-                  </Grid>
-                )}
-                {!isLoadingPasswords && this.passwords.length > 0 && (
-                  <List dense={false}>
-                    {this.passwords.map(password => (
-                      <ListItem key={password.id}>
-                        <ListItemText
-                          primary={password.appName}
-                          secondary={password.appUrl}
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton aria-label="View">
-                            <Icon>filter_none</Icon>
-                          </IconButton>
-                          <IconButton
-                            aria-label="Edit"
-                            onClick={() =>
-                              this.editExistingPassword(password.id)
-                            }
-                          >
-                            <Icon>edit</Icon>
-                          </IconButton>
-                          <IconButton aria-label="Delete">
-                            <Icon>delete</Icon>
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
-                    ))}
-                  </List>
-                )}
-                {!isLoadingPasswords && this.passwords.length === 0 && (
-                  <Typography
-                    component="h2"
-                    variant="title"
-                    style={{ textAlign: 'center', marginTop: 15 }}
-                  >
-                    You have no passwords yet. Get going and add some.
-                  </Typography>
-                )}
-              </Grid>
             </Grid>
-          </div>
+            <Grid item>
+              <FormControl style={{ minWidth: 120 }}>
+                <InputLabel htmlFor="category-simple">Category</InputLabel>
+                <Select
+                  value={this.state.selectedCategory}
+                  onChange={this.handleChange}
+                  inputProps={{
+                    name: 'selectedCategory',
+                    id: 'category-simple'
+                  }}
+                >
+                  {AzkabanService.categories.map(category => (
+                    <MenuItem key={category.id} value={category}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <FormHelperText>
+                  View passwords in specific categories.
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => this.addNewPassword()}
+              >
+                <Icon style={{ marginRight: 10 }}>add_circle</Icon>
+                Add
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider style={{ marginTop: 15 }} />
+              {isLoadingPasswords && (
+                <Grid
+                  container
+                  justify="center"
+                  style={{ textAlign: 'center', marginTop: 15 }}
+                >
+                  <Grid item xs={12}>
+                    <CircularProgress />
+                  </Grid>
+                </Grid>
+              )}
+              {!isLoadingPasswords && this.passwords.length > 0 && (
+                <List dense={false}>
+                  {this.passwords.map(password => (
+                    <ListItem key={password.id}>
+                      <ListItemText
+                        primary={password.appName}
+                        secondary={password.appUrl}
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          aria-label="View"
+                          onClick={() =>
+                            this.copyPasswordToClipboard(password.id)
+                          }
+                        >
+                          <Icon>filter_none</Icon>
+                        </IconButton>
+                        <IconButton
+                          aria-label="Edit"
+                          onClick={() => this.editExistingPassword(password.id)}
+                        >
+                          <Icon>edit</Icon>
+                        </IconButton>
+                        <IconButton
+                          aria-label="Delete"
+                          onClick={() =>
+                            this.deleteExistingPassword(password.id)
+                          }
+                        >
+                          <Icon>delete</Icon>
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              )}
+              {!isLoadingPasswords && this.passwords.length === 0 && (
+                <Typography
+                  component="h2"
+                  variant="title"
+                  style={{ textAlign: 'center', marginTop: 15 }}
+                >
+                  You have no passwords yet. Get going and add some.
+                </Typography>
+              )}
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );

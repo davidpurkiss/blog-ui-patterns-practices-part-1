@@ -15,14 +15,23 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatIconModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatSelectModule,
+  MatDividerModule,
+  MatListModule
 } from '@angular/material';
 
 import { SignInComponent } from './components/sign-in.component';
 import { PasswordManager } from './components/password-manager.component';
+import { PasswordDetails } from './components/password-details.component';
 
 @NgModule({
-  declarations: [AppComponent, SignInComponent, PasswordManager],
+  declarations: [
+    AppComponent,
+    SignInComponent,
+    PasswordManager,
+    PasswordDetails
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,7 +43,10 @@ import { PasswordManager } from './components/password-manager.component';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

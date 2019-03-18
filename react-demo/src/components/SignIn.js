@@ -63,7 +63,7 @@ class SignIn extends Component {
         style={{ marginTop: 50, textAlign: 'center' }}
         spacing={16}
       >
-        <Grid item>
+        <Grid item xs={12}>
           <Typography component="h2" variant="display1">
             Welcome to {title}!
           </Typography>
