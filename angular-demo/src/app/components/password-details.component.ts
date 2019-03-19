@@ -10,7 +10,7 @@ import { switchMap } from 'rxjs/operators';
 export class PasswordDetails {
   isSaving = false;
 
-  password = {};
+  password = { category: 1 };
 
   categories = AzkabanService.categories.filter(category => category.id !== 0);
 

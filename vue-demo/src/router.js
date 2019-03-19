@@ -19,7 +19,7 @@ export default new Router({
       component: PasswordManager
     },
     {
-      path: '/password/:id',
+      path: '/password/:id?',
       name: 'password',
       component: PasswordDetails
     }
