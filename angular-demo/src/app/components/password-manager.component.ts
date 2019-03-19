@@ -20,6 +20,7 @@ export class PasswordManager {
     this.isLoadingPasswords = true;
     AzkabanService.getPasswords()
       .then(passwords => {
+        console.log('Got passwords: ', passwords);
         this.passwords = <any[]>passwords;
         this.isLoadingPasswords = false;
       })

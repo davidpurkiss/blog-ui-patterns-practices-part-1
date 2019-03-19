@@ -16,7 +16,13 @@ export class PasswordDetails {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let id = this.getId();
+
+    if (id) {
+      this.password = AzkabanService.getPassword(id);
+    }
+  }
 
   save() {
     this.isSaving = true;
