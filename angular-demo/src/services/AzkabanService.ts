@@ -59,8 +59,14 @@ export class AzkabanService {
    * getNextPasswordId gets the next password id to use when adding a new password.
    */
   static getNextPasswordId() {
-    let ids = AzkabanService.passwords.map(password => Number(password.id));
-    return Math.max(...ids) + 1;
+    if (AzkabanService.passwords.length > 0) {
+      let ids = AzkabanService.passwords
+        .map(password => Number(password.id))
+        .map(id => (Number.isNaN(id) ? 0 : id));
+      return Math.max(...ids) + 1;
+    } else {
+      return 1;
+    }
   }
 
   /**

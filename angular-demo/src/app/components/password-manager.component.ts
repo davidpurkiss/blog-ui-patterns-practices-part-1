@@ -11,19 +11,19 @@ export class PasswordManager {
 
   selectedCategory = AzkabanService.categories[0];
 
-  passwords = [{ appName: 'Test', appUrl: 'Test', category: 'Test' }];
+  passwords = [];
   isLoadingPasswords = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // this.isLoadingPasswords = true;
-    // AzkabanService.getPasswords()
-    //   .then(passwords => {
-    //     this.passwords = <any[]>passwords;
-    //     this.isLoadingPasswords = false;
-    //   })
-    //   .catch(error => (this.isLoadingPasswords = false));
+    this.isLoadingPasswords = true;
+    AzkabanService.getPasswords()
+      .then(passwords => {
+        this.passwords = <any[]>passwords;
+        this.isLoadingPasswords = false;
+      })
+      .catch(error => (this.isLoadingPasswords = false));
   }
 
   addNewPassword() {
@@ -31,6 +31,6 @@ export class PasswordManager {
   }
 
   editExistingPassword(id) {
-    this.router.navigate([`/password/${id}`]);
+    this.router.navigate([`/password`, id]);
   }
 }
