@@ -117,4 +117,54 @@ export class AzkabanService {
       password => password.id === Number(id)
     );
   }
+
+  /**
+   * Removes a password from the list using its id
+   * @param {number} id The if of the password to delete
+   */
+  static deletePassword(id) {
+    let passwordToDelete = AzkabanService.passwords.find(
+      password => password.id === id
+    );
+    let index = AzkabanService.passwords.indexOf(passwordToDelete);
+
+    AzkabanService.passwords.splice(index, 0);
+  }
+
+  /**
+   * Generates a unique identifier. RFC4122 version 4 compliant and cryptographic quality (see https://stackoverflow.com/a/2117523).
+   */
+  static copyToClipboard(value) {
+    //Generate a unique id for the copy operation
+    const id = AzkabanService.uuid();
+
+    // Create an input element and add it to the DOM
+    var tempInputElement = document.createElement('input');
+    document.body.appendChild(tempInputElement);
+
+    // Set its ID to the unique id generated
+    tempInputElement.setAttribute('id', id);
+
+    // Set the value to copy into the value of the input element
+    document.getElementById(id).value = value;
+
+    // Select and execute the copy command
+    tempInputElement.select();
+    document.execCommand('copy');
+
+    // Remove the input element as its not needed anymore
+    document.body.removeChild(tempInputElement);
+  }
+
+  /**
+   * Generates a unique identifier. RFC4122 version 4 compliant and cryptographic quality (see https://stackoverflow.com/a/2117523).
+   */
+  static uuid() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+      (
+        c ^
+        (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+      ).toString(16)
+    );
+  }
 }

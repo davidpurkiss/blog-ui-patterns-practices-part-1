@@ -20,6 +20,7 @@
                 :items="categories"
                 label="Category"
                 item-text="name"
+                return-object
                 v-model="selectedCategory"
                 hint="View passwords in specific categories."
                 persistent-hint
@@ -41,11 +42,11 @@
             <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
           </div>
           <div
-            v-else-if="passwords.length === 0"
+            v-else-if="filteredPasswords.length === 0"
             class="title text-xs-center"
-          >You have no passwords yet. Get going and add some.</div>
+          >{{ selectedCategory.id === 0 ? 'You have no passwords yet. Get going and add some.' : 'No passwords in this category.' }}</div>
           <v-list v-else two-line>
-            <v-list-tile v-for="password in passwords" :key="password.id">
+            <v-list-tile v-for="password in filteredPasswords" :key="password.id">
               <v-list-tile-content>
                 <v-list-tile-title>{{ password.appName }}</v-list-tile-title>
                 <v-list-tile-sub-title>{{ password.appUrl }}</v-list-tile-sub-title>
@@ -86,9 +87,33 @@ export default {
       this.$router.push(`/password/${id}`);
     },
 
-    deleteExistingPassword(id) {},
+    deleteExistingPassword(id) {
+      AzkabanService.deletePassword(id);
+      let passwordToDelete = this.passwords.find(password => password.id);
+      let index = this.passwords.indexOf(passwordToDelete);
+      this.passwords.splice(index, 1);
+    },
 
-    copyPasswordToClipboard(id) {}
+    copyPasswordToClipboard(id) {
+      let passwordToCopy = AzkabanService.getPassword(id);
+      AzkabanService.copyToClipboard(passwordToCopy.password);
+    }
+  },
+  computed: {
+    filteredPasswords() {
+      console.log('Selected category: ', this.selectedCategory);
+      if (!this.passwords) {
+        return [];
+      }
+
+      if (this.selectedCategory.id !== 0) {
+        return this.passwords.filter(
+          password => password.category === this.selectedCategory.id
+        );
+      } else {
+        return this.passwords;
+      }
+    }
   },
   mounted() {
     this.isLoadingPasswords = true;
