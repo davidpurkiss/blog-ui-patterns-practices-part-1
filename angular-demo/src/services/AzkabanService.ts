@@ -153,7 +153,7 @@ export class AzkabanService {
     tempInputElement.setAttribute('id', id);
 
     // Set the value to copy into the value of the input element
-    document.getElementById(id).value = value;
+    (document.getElementById(id) as any).value = value;
 
     // Select and execute the copy command
     tempInputElement.select();
@@ -176,6 +176,6 @@ export class AzkabanService {
     // );
 
     // For demo only. Use the code above for prod (not working in TypeScript)
-    return this.uuidCount++;
+    return (this.uuidCount++).toString();
   }
 }
