@@ -101,7 +101,6 @@ export default {
   },
   computed: {
     filteredPasswords() {
-      console.log('Selected category: ', this.selectedCategory);
       if (!this.passwords) {
         return [];
       }

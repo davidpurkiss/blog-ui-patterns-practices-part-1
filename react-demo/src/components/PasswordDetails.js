@@ -178,6 +178,7 @@ class PasswordDetails extends Component {
                       value={this.state.password}
                       onChange={this.handleValueChange('password')}
                       fullWidth
+                      type="password"
                     />
                   </form>
                 </Grid>

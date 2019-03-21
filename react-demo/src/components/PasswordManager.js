@@ -24,8 +24,6 @@ class PasswordManager extends Component {
     isLoadingPasswords: false
   };
 
-  passwords = [];
-
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
@@ -38,9 +36,32 @@ class PasswordManager extends Component {
     this.props.history.push(`/password/${id}`);
   }
 
-  deleteExistingPassword(id) {}
+  copyPasswordToClipboard(id) {
+    let passwordToCopy = AzkabanService.getPassword(id);
+    AzkabanService.copyToClipboard(passwordToCopy.password);
+  }
 
-  copyPasswordToClipboard(id) {}
+  deleteExistingPassword(id) {
+    AzkabanService.deletePassword(id);
+    let passwordToDelete = this.passwords.find(password => password.id);
+    let index = this.passwords.indexOf(passwordToDelete);
+    this.passwords.splice(index, 1);
+    this.setState({});
+  }
+
+  get filteredPasswords() {
+    if (!this.passwords) {
+      return [];
+    }
+
+    if (this.state.selectedCategory.id !== 0) {
+      return this.passwords.filter(
+        password => password.category === this.state.selectedCategory.id
+      );
+    } else {
+      return this.passwords;
+    }
+  }
 
   componentDidMount() {
     this.setState({ isLoadingPasswords: true });
@@ -55,7 +76,7 @@ class PasswordManager extends Component {
   }
 
   render() {
-    const { isLoadingPasswords } = this.state;
+    const { isLoadingPasswords, selectedCategory } = this.state;
 
     return (
       <Grid container direction="row" justify="center">
@@ -93,7 +114,7 @@ class PasswordManager extends Component {
               <FormControl style={{ minWidth: 120 }}>
                 <InputLabel htmlFor="category-simple">Category</InputLabel>
                 <Select
-                  value={this.state.selectedCategory}
+                  value={selectedCategory}
                   onChange={this.handleChange}
                   inputProps={{
                     name: 'selectedCategory',
@@ -134,9 +155,9 @@ class PasswordManager extends Component {
                   </Grid>
                 </Grid>
               )}
-              {!isLoadingPasswords && this.passwords.length > 0 && (
+              {!isLoadingPasswords && this.filteredPasswords.length > 0 && (
                 <List dense={false}>
-                  {this.passwords.map(password => (
+                  {this.filteredPasswords.map(password => (
                     <ListItem key={password.id}>
                       <ListItemText
                         primary={password.appName}
@@ -170,13 +191,15 @@ class PasswordManager extends Component {
                   ))}
                 </List>
               )}
-              {!isLoadingPasswords && this.passwords.length === 0 && (
+              {!isLoadingPasswords && this.filteredPasswords.length === 0 && (
                 <Typography
                   component="h2"
                   variant="title"
                   style={{ textAlign: 'center', marginTop: 15 }}
                 >
-                  You have no passwords yet. Get going and add some.
+                  {selectedCategory.id === 0
+                    ? 'You have no passwords yet. Get going and add some.'
+                    : 'No passwords in this category.'}
                 </Typography>
               )}
             </Grid>

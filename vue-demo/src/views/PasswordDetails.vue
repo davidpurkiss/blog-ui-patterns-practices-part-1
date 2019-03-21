@@ -33,7 +33,7 @@
               v-model="password.category"
             ></v-select>
             <v-text-field v-model="password.username" label="Username"></v-text-field>
-            <v-text-field v-model="password.password" label="Password"></v-text-field>
+            <v-text-field v-model="password.password" label="Password" type="passsword"></v-text-field>
           </v-form>
         </v-flex>
         <v-flex xs12>

@@ -20,7 +20,6 @@ export class PasswordManager {
     this.isLoadingPasswords = true;
     AzkabanService.getPasswords()
       .then(passwords => {
-        console.log('Got passwords: ', passwords);
         this.passwords = <any[]>passwords;
         this.isLoadingPasswords = false;
       })
@@ -33,5 +32,31 @@ export class PasswordManager {
 
   editExistingPassword(id) {
     this.router.navigate([`/password`, id]);
+  }
+
+  copyPasswordToClipboard(id) {
+    let passwordToCopy = AzkabanService.getPassword(id);
+    AzkabanService.copyToClipboard(passwordToCopy.password);
+  }
+
+  deleteExistingPassword(id) {
+    AzkabanService.deletePassword(id);
+    let passwordToDelete = this.passwords.find(password => password.id);
+    let index = this.passwords.indexOf(passwordToDelete);
+    this.passwords.splice(index, 1);
+  }
+
+  get filteredPasswords() {
+    if (!this.passwords) {
+      return [];
+    }
+
+    if (this.selectedCategory.id !== 0) {
+      return this.passwords.filter(
+        password => password.category === this.selectedCategory.id
+      );
+    } else {
+      return this.passwords;
+    }
   }
 }
