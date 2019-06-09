@@ -1,0 +1,9 @@
+class SignIn extends Component {
+	state  = {
+		email:  '',
+		password:  '',
+		rememberMe:  false,
+		signInState:  SIGN_IN_STATE_READY,
+		error:  ''
+	};
+...

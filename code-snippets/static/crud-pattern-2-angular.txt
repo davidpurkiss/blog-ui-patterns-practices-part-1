@@ -1,0 +1,37 @@
+
+...
+
+ngOnInit() {
+  let id = this.getId();
+
+  if (id) {
+    this.password = AzkabanService.getPassword(id);
+  }
+}
+
+save() {
+  this.isSaving = true;
+  if (this.isNew()) {
+    AzkabanService.addPassword(this.password).then(() => {
+      this.isSaving = false;
+      this.navigateToPasswords();
+    });
+  } else {
+    AzkabanService.updatePassword(this.getId(), this.password).then(() => {
+      this.isSaving = true;
+      this.navigateToPasswords();
+    });
+  }
+}
+
+...
+
+getId() {
+  return this.route.snapshot.paramMap.get('id');
+}
+
+isNew() {
+  return this.getId() === undefined || this.getId() === null;
+}
+
+...

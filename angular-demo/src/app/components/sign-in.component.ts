@@ -27,7 +27,6 @@ export class SignInComponent {
   signIn() {
     this.state = SignInState.IN_PROGRESS;
 
-    console.log(`User: ${this.username}, Pass: ${this.password}`);
     AzkabanService.signIn(this.username, this.password)
       .then(() => {
         this.state = SignInState.SUCCESS;

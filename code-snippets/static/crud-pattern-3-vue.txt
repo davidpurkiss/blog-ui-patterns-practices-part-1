@@ -1,0 +1,31 @@
+...
+
+<v-layout  row  justify-start>
+	<v-flex  shrink  mr-3>
+		<v-icon  large>shield</v-icon>
+	</v-flex>
+	<v-flex>
+		<div  class="title">{{ isNew  ?  'Add new'  :  'Edit' }} password</div>
+		<div  class="subheading">
+			{{ isNew
+			?  'Add a new password for an app or website.'
+			:  'Change the details for your existing password.' }}
+		</div>
+	</v-flex>
+</v-layout>
+
+...
+
+<v-flex  xs12>
+	<div  class="text-xs-right">
+		<v-btn  @click="cancel">Cancel</v-btn>
+		<v-btn
+		@click="save"
+		:disabled="isSaving"
+		:loading="isSaving"
+		color="primary"
+		>{{ isNew  ?  'Add'  :  'Save'}}</v-btn>
+	</div>
+</v-flex>
+
+...

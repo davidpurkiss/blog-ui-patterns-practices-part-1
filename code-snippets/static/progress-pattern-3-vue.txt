@@ -1,0 +1,13 @@
+export default {
+  components: {},
+  data() {
+    return {
+      title: 'Azkaban - Password Manager',
+      email: '',
+      password: '',
+      rememberMe: '',
+      signInState: SIGN_IN_STATE_READY,
+      error: '',
+      ...
+    };
+  },

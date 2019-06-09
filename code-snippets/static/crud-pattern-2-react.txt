@@ -1,0 +1,36 @@
+...
+
+componentDidMount() {
+  if (!this.isNew()) {
+    this.setState(AzkabanService.getPassword(this.getId()));
+  }
+}
+
+...
+
+save() {
+  this.setState({ isSaving: true });
+  if (this.isNew()) {
+    AzkabanService.addPassword(this.state).then(() => {
+      this.setState({ isSaving: false });
+      this.navigateToPasswords();
+    });
+  } else {
+    AzkabanService.updatePassword(this.getId(), this.state).then(() => {
+      this.setState({ isSaving: false });
+      this.navigateToPasswords();
+    });
+  }
+}
+
+...
+
+getId() {
+  return this.props.match.params.id;
+}
+
+isNew() {
+  return this.getId() === undefined;
+}
+
+...

@@ -1,0 +1,46 @@
+...
+
+methods: {
+	save() {
+		this.isSaving  =  true;
+		if (this.isNew) {
+			AzkabanService.addPassword(this.password).then(() => {
+				this.isSaving  =  false;
+				this.navigateToPasswords();
+			});
+		} else {
+			AzkabanService.updatePassword(this.getId(), this.password).then(() => {
+				this.isSaving  =  false;
+				this.navigateToPasswords();
+		});
+		}
+	},
+
+	...
+
+	getId() {
+		if (this.$route) {
+			return this.$route.params.id;
+		}
+	},
+	getIsNew() {
+		return this.getId() === undefined;
+	}
+},
+mounted() {
+	if (!this.isNew) {
+		this.password = AzkabanService.getPassword(this.getId());
+	}
+},
+data() {
+	return {
+		isNew: this.getIsNew(),
+		isSaving: false,
+		password: { category: 1 },
+		categories: AzkabanService.categories.filter(
+			category => category.id !==  0
+		)
+	};
+}
+
+...

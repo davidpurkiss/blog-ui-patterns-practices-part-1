@@ -1,0 +1,11 @@
+...
+
+addNewPassword() {
+  this.props.history.push('/password');
+}
+
+editExistingPassword(id) {
+  this.props.history.push(`/password/${id}`);
+}
+
+...

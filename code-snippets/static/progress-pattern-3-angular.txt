@@ -1,0 +1,10 @@
+export class SignInComponent {
+  title = 'Azkaban - Password Manager';
+  username = '';
+  password = '';
+
+  SignInState = SignInState;
+  state = SignInState.READY;
+  error = '';
+	...
+}

@@ -1,0 +1,40 @@
+<ng-container *ngIf="state === SignInState.IN_PROGRESS">
+  <div fxFlex="100%" style="margin-top: 10px" fxLayoutAlign="center center">
+    <mat-spinner></mat-spinner>
+  </div>
+  <div fxFlex="100%">
+    <h3 class="mat-title">You are being signed in.</h3>
+    <h4 class="mat-subheading">Please wait...</h4>
+  </div>
+</ng-container>
+<ng-container *ngIf="state === SignInState.ERROR">
+  <div fxFlex="100%" style="margin-top: 25px">
+    <mat-icon style="color:#F44336; font-size: 32px">error</mat-icon>
+  </div>
+  <div fxFlex="100%">
+    <h3 class="mat-title">{{ error }}</h3>
+    <h4 class="mat-subheading">
+      Please try again or <a href="#reset">reset your password</a>.
+    </h4>
+    <button
+      (click)="state = SignInState.READY"
+      mat-raised-button
+      color="accent"
+    >
+      Try Again
+    </button>
+  </div>
+</ng-container>
+<ng-container *ngIf="state === SignInState.SUCCESS">
+  <div fxFlex="100%" style="margin-top: 25px">
+    <mat-icon color="primary" style="font-size: 32px"
+      >check_circle_outline</mat-icon
+    >
+  </div>
+  <div fxFlex="100%">
+    <h3 class="mat-title">You have signed in successfully.</h3>
+    <h4 class="mat-subheading">
+      You're on the way to managing your passwords.
+    </h4>
+  </div>
+</ng-container>

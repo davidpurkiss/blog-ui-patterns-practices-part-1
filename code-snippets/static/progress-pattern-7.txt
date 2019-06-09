@@ -1,0 +1,6 @@
+enum SignInState {
+	READY = 'READY',
+	IN_PROGRESS = 'IN_PROGRESS',
+	ERROR = 'ERROR',
+	SUCCESS = 'SUCCESS'
+}

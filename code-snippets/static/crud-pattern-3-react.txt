@@ -1,0 +1,43 @@
+
+...
+
+<Grid item>
+  <Icon fontSize="large">shield</Icon>
+</Grid>
+<Grid item>
+  <Typography component="h2" variant="title">
+    {isNew ? 'Add new ' : 'Edit '}Password
+  </Typography>
+  <Typography component="h2" variant="subheading">
+    {isNew
+      ? 'Add a new password for an app or website.'
+      : 'Change the details for your existing password.'}
+  </Typography>
+</Grid>
+
+...
+
+<Grid item xs={12}>
+  <Grid container direction="row" justify="space-between">
+    <Grid item />
+    <Grid item>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => this.cancel()}
+        style={{ marginRight: 15 }}
+      >
+        Cancel
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => this.save()}
+      >
+        <div> {isNew ? 'Add' : 'Save'} </div>
+      </Button>
+    </Grid>
+  </Grid>
+</Grid>
+
+...

@@ -1,0 +1,56 @@
+<v-layout v-if="signInState === SIGN_IN_STATE_READY" row wrap>
+  <v-flex xs12>
+    <v-form>
+      <v-text-field v-model="email" label="Email Address" prepend-icon="email"></v-text-field>
+      <v-text-field v-model="password" label="Password" prepend-icon="lock" type="password"></v-text-field>
+      <v-checkbox v-model="rememberMe" label="Remember Me" color="primary"></v-checkbox>
+    </v-form>
+  </v-flex>
+  <v-flex xs12>
+    <a href="#reset">Forgot your password?</a> (Use user:pass)
+  </v-flex>
+  <v-flex xs12 mt-4>
+    <v-btn @click="signIn" color="primary">
+      <v-icon left>security</v-icon>Sign In
+    </v-btn>
+  </v-flex>
+</v-layout>
+<v-layout v-if="signInState === SIGN_IN_STATE_IN_PROGRESS" row wrap>
+  <v-flex xs12>
+    <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+  </v-flex>
+  <v-flex xs12 mt-3>
+    <div class="title">You are being signed in.</div>
+  </v-flex>
+  <v-flex xs12 mt-1>
+    <div class="subheading">Please wait...</div>
+  </v-flex>
+</v-layout>
+<v-layout v-if="signInState === SIGN_IN_STATE_SUCCESS" row wrap>
+  <v-flex xs12>
+    <v-icon color="green" x-large>check_circle_outline</v-icon>
+  </v-flex>
+  <v-flex xs12 mt-3>
+    <div class="title">You have signed in successfully.</div>
+  </v-flex>
+  <v-flex xs12 mt-1>
+    <div class="subheading">You're on the way to managing your passwords.</div>
+  </v-flex>
+</v-layout>
+<v-layout v-if="signInState === SIGN_IN_STATE_ERROR" row wrap>
+  <v-flex xs12>
+    <v-icon color="red" x-large>error</v-icon>
+  </v-flex>
+  <v-flex xs12 mt-3>
+    <div class="title">{{error}}</div>
+  </v-flex>
+  <v-flex xs12 mt-1>
+    <div class="subheading">
+      Please try again or
+      <a href="#reset">reset your password</a>.
+    </div>
+  </v-flex>
+  <v-flex xs12 mt-3>
+    <v-btn @click="signInState = SIGN_IN_STATE_READY" secondary>Retry</v-btn>
+  </v-flex>
+</v-layout>

@@ -1,0 +1,35 @@
+...
+
+<div fxFlex="100%" fxLayout="row wrap" fxLayoutAlign="start center">
+  <div fxFlex="55px">
+    <mat-icon style="font-size: 32px">shield</mat-icon>
+  </div>
+  <div fxFlex="">
+    <h2 class="mat-title" style="margin-bottom: 0">
+      {{ isNew() ? 'Add new' : 'Edit' }} Password
+    </h2>
+    <h3 class="mat-subheading" style="margin-top: 0">
+      {{
+        isNew()
+          ? 'Add a new password for an app or website.'
+          : 'Change the details for your existing password.'
+      }}
+    </h3>
+  </div>
+</div>
+
+...
+
+<div fxFlex="" fxLayoutAlign="end center">
+  <button
+    (click)="cancel()"
+    mat-raised-button
+    color="accent"
+    style="margin-right: 15px"
+  >
+    Cancel
+  </button>
+  <button (click)="save()" mat-raised-button color="primary">
+    {{ isNew() ? 'Add' : 'Save' }}
+  </button>
+</div>

@@ -1,0 +1,10 @@
+...
+
+addNewPassword() {
+  this.$router.push('/password');
+},
+editExistingPassword(id) {
+  this.$router.push(`/password/${id}`);
+},
+
+...

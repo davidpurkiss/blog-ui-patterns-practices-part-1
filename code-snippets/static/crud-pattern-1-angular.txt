@@ -1,0 +1,11 @@
+...
+
+addNewPassword() {
+  this.router.navigate(['/password']);
+}
+
+editExistingPassword(id) {
+  this.router.navigate([`/password`, id]);
+}
+
+...

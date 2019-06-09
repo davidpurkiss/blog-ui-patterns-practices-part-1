@@ -1,0 +1,63 @@
+{signInState === SIGN_IN_STATE_IN_PROGRESS && (
+<Fragment>
+	<Grid  item  xs={12}>
+		<CircularProgress  />
+	</Grid>
+	<Grid  item  xs={12}>
+		<Typography  component="h3"  variant="title">
+			You are being signed in.
+		</Typography>
+		<Typography  component="h4"  variant="subheading">
+			Please wait...
+		</Typography>
+	</Grid>
+</Fragment>
+)}
+{signInState === SIGN_IN_STATE_ERROR && (
+<Fragment>
+	<Grid  item  xs={12}>
+		<Icon  color="error"  fontSize="large"  style={{ marginRight:  10 }}>
+		error
+		</Icon>
+	</Grid>
+	<Grid  item  xs={12}>
+		<Typography  component="h3"  variant="title">
+		{error}
+		</Typography>
+		<Typography  component="h4"  variant="subheading">
+		Please try again or <a  href="#reset">reset your password</a>.
+		</Typography>
+		<Button
+		variant="contained"
+		color="secondary"
+		style={{ marginTop:  25, marginBottom:  50 }}
+		onClick={() =>
+		this.setState({ signInState:  SIGN_IN_STATE_READY })
+		}>
+			Try again
+		</Button>
+	</Grid>
+</Fragment>
+)}
+
+{signInState === SIGN_IN_STATE_SUCCESS && (
+<Fragment>
+	<Grid  item  xs={12}>
+		<Icon
+		color="primary"
+		fontSize="large"
+		style={{ marginRight:  10 }}
+		>
+			check_circle_outline
+		</Icon>
+	</Grid>
+	<Grid  item  xs={12}>
+		<Typography  component="h3"  variant="title">
+		You have signed in successfully.
+		</Typography>
+		<Typography  component="h4"  variant="subheading">
+		You're on the way to managing your passwords.
+		</Typography>
+	</Grid>
+</Fragment>
+)}

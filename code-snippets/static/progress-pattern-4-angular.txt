@@ -1,0 +1,15 @@
+signIn() {
+  this.state = SignInState.IN_PROGRESS;
+
+  AzkabanService.signIn(this.username, this.password)
+    .then(() => {
+      this.state = SignInState.SUCCESS;
+      setTimeout(() => {
+        this.router.navigate(['passwords']);
+      }, 750);
+    })
+    .catch(error => {
+      this.error = error;
+      this.state = SignInState.ERROR;
+    });
+}
