@@ -1,0 +1,20 @@
+<div fxLayoutAlign="center center" fxFlex.gt-xl="16%" fxFlex.gt-lg="33%" fxFlex.gt-md="33%" fxFlex.gt-sm="50%" fxFlex.gt-xs="66%">
+  <form>
+    <mat-form-field>
+      <input matInput name="username" [(ngModel)]="username" placeholder="Email Address" type="email" />
+      <span matPrefix><mat-icon matPrefix>email</mat-icon></span>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput name="password" [(ngModel)]="password" placeholder="Password" type="password" />
+      <span matPrefix><mat-icon matPrefix>lock</mat-icon></span>
+    </mat-form-field>
+    <mat-checkbox>Remember Me</mat-checkbox>
+  </form>
+</div>
+<div fxFlex="100%" style="margin-top: 10px"><a href="#reset">Forgot your password?</a> (Use user:pass)</div>
+<div fxFlex="100%" style="margin-top: 10px">
+  <button (click)="signIn()" mat-raised-button color="primary">
+    <mat-icon>security</mat-icon>
+    Sign In
+  </button>
+</div>

@@ -1,0 +1,10 @@
+...
+import { AzkabanService } from '../services/AzkabanService';
+
+class PasswordManager extends Component {
+  state = {
+    selectedCategory: AzkabanService.categories[0],
+    isLoadingPasswords: false
+  };
+...
+}

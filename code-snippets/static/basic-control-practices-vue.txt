@@ -1,0 +1,13 @@
+<v-layout row wrap>
+  <v-flex xs12>
+    <v-form>
+      <v-text-field v-model="email" label="Email Address" prepend-icon="email"></v-text-field>
+      <v-text-field v-model="password" label="Password" prepend-icon="lock" type="password"></v-text-field>
+      <v-checkbox v-model="rememberMe" label="Remember Me" color="primary"></v-checkbox>
+    </v-form>
+  </v-flex>
+  <v-flex xs12> <a href="#reset">Forgot your password?</a> (Use user:pass) </v-flex>
+  <v-flex xs12 mt-4>
+    <v-btn color="primary" @click="signIn"> <v-icon left>security</v-icon>Sign In </v-btn>
+  </v-flex>
+</v-layout>

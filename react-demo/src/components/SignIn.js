@@ -80,8 +80,8 @@ class SignIn extends Component {
               <Grid item>
                 <form autoComplete="off">
                   <TextField
-                    label="Email Address"
                     value={this.state.email}
+                    label="Email Address"
                     onChange={this.handleValueChange('email')}
                     type="email"
                     fullWidth
@@ -94,8 +94,8 @@ class SignIn extends Component {
                     }}
                   />
                   <TextField
-                    label="Password"
                     value={this.state.password}
+                    label="Password"
                     onChange={this.handleValueChange('password')}
                     type="password"
                     fullWidth
@@ -128,10 +128,10 @@ class SignIn extends Component {
             </Grid>
             <Grid item xs={12}>
               <Button
+                onClick={() => this.signIn()}
                 variant="contained"
                 color="primary"
                 style={{ marginBottom: 50 }}
-                onClick={() => this.signIn()}
               >
                 <Icon style={{ marginRight: 10 }}>security</Icon>
                 Sign In

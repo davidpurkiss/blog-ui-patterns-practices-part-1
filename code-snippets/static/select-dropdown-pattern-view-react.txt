@@ -1,0 +1,20 @@
+<FormControl style={{ minWidth: 120 }}>
+  <InputLabel htmlFor="category-simple">Category</InputLabel>
+  <Select
+    value={selectedCategory}
+    onChange={this.handleChange}
+    inputProps={{
+      name: 'selectedCategory',
+      id: 'category-simple'
+    }}
+  >
+    {AzkabanService.categories.map(category => (
+      <MenuItem key={category.id} value={category}>
+        {category.name}
+      </MenuItem>
+    ))}
+  </Select>
+  <FormHelperText>
+    View passwords in specific categories.
+  </FormHelperText>
+</FormControl>

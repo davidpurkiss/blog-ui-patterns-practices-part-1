@@ -1,0 +1,14 @@
+<TextField
+        value={this.state.email}
+        label="Email Address"
+        onChange={this.handleValueChange('email')}
+        type="email"
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <i className="material-icons">email</i>
+            </InputAdornment>
+          )
+        }}
+      />

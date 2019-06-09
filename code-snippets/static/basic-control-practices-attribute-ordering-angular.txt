@@ -1,0 +1,4 @@
+<mat-form-field>
+  <input matInput name="username" [(ngModel)]="username" placeholder="Email Address" type="email" />
+  <span matPrefix><mat-icon matPrefix>email</mat-icon></span>
+</mat-form-field>

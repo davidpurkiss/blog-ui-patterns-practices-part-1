@@ -20,7 +20,7 @@
             <a href="#reset">Forgot your password?</a> (Use user:pass)
           </v-flex>
           <v-flex xs12 mt-4>
-            <v-btn color="primary" @click="signIn">
+            <v-btn @click="signIn" color="primary">
               <v-icon left>security</v-icon>Sign In
             </v-btn>
           </v-flex>

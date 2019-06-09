@@ -1,0 +1,10 @@
+<v-select
+  v-model="selectedCategory"
+  :items="categories"
+  label="Category"
+  item-text="name"
+  return-object
+  hint="View passwords in specific categories."
+  persistent-hint
+  style="width: 220px"
+></v-select>

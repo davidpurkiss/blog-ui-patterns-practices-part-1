@@ -3,7 +3,7 @@
     <v-flex xs12 sm11 md10 lg8 xl6>
       <v-layout row wrap>
         <v-flex xs12>
-          <v-layout row justify-start mb-3>
+          <v-layout row align-center justify-start mb-3>
             <v-flex shrink mr-3>
               <v-icon large>shield</v-icon>
             </v-flex>
@@ -17,11 +17,11 @@
           <v-layout align-center>
             <v-flex>
               <v-select
+                v-model="selectedCategory"
                 :items="categories"
                 label="Category"
                 item-text="name"
                 return-object
-                v-model="selectedCategory"
                 hint="View passwords in specific categories."
                 persistent-hint
                 style="width: 220px"
@@ -39,32 +39,59 @@
         </v-flex>
         <v-flex xs12 mt-3>
           <div v-if="isLoadingPasswords" class="text-xs-center">
-            <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+            <v-progress-circular
+              :size="50"
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
           </div>
           <div
             v-else-if="filteredPasswords.length === 0"
             class="title text-xs-center"
-          >{{ selectedCategory.id === 0 ? 'You have no passwords yet. Get going and add some.' : 'No passwords in this category.' }}</div>
+          >
+            {{
+              selectedCategory.id === 0
+                ? 'You have no passwords yet. Get going and add some.'
+                : 'No passwords in this category.'
+            }}
+          </div>
           <v-list v-else two-line>
-            <v-list-tile v-for="password in filteredPasswords" :key="password.id">
+            <v-list-tile
+              v-for="password in filteredPasswords"
+              :key="password.id"
+            >
               <v-list-tile-content>
                 <v-list-tile-title>{{ password.appName }}</v-list-tile-title>
-                <v-list-tile-sub-title>{{ password.appUrl }}</v-list-tile-sub-title>
+                <v-list-tile-sub-title>{{
+                  password.appUrl
+                }}</v-list-tile-sub-title>
               </v-list-tile-content>
 
               <v-list-tile-action>
-                <v-btn icon ripple @click="copyPasswordToClipboard(password.id)">
+                <v-btn
+                  icon
+                  ripple
+                  @click="copyPasswordToClipboard(password.id)"
+                >
                   <v-icon color="grey">filter_none</v-icon>
                 </v-btn>
               </v-list-tile-action>
               <v-list-tile-action>
                 <v-btn icon ripple>
-                  <v-icon color="grey" @click="editExistingPassword(password.id)">edit</v-icon>
+                  <v-icon
+                    color="grey"
+                    @click="editExistingPassword(password.id)"
+                    >edit</v-icon
+                  >
                 </v-btn>
               </v-list-tile-action>
               <v-list-tile-action>
                 <v-btn icon ripple>
-                  <v-icon color="grey" @click="deleteExistingPassword(password.id)">delete</v-icon>
+                  <v-icon
+                    color="grey"
+                    @click="deleteExistingPassword(password.id)"
+                    >delete</v-icon
+                  >
                 </v-btn>
               </v-list-tile-action>
             </v-list-tile>

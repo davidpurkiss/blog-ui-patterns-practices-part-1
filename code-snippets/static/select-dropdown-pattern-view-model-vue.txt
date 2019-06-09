@@ -1,0 +1,15 @@
+import { AzkabanService } from '../services/AzkabanService';
+
+export default {
+  
+  ...
+
+  data() {
+    return {
+      categories: AzkabanService.categories,
+      selectedCategory: AzkabanService.categories[0],
+      passwords: [],
+      isLoadingPasswords: false
+    };
+  }
+};

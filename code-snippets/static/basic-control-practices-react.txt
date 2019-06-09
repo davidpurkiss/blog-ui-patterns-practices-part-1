@@ -1,0 +1,46 @@
+<Grid item xl={2} lg={4} md={4} sm={6} xs={8}>
+  <Grid item>
+    <form autoComplete="off">
+      <TextField
+        value={this.state.email}
+        label="Email Address"
+        onChange={this.handleValueChange('email')}
+        type="email"
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <i className="material-icons">email</i>
+            </InputAdornment>
+          )
+        }}
+      />
+      <TextField
+        value={this.state.password}
+        label="Password"
+        onChange={this.handleValueChange('password')}
+        type="password"
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Icon>lock</Icon>
+            </InputAdornment>
+          )
+        }}
+      />
+      <FormControlLabel value="rememberMe" control={<Checkbox checked={this.state.rememberMe} onChange={this.handleCheckedChange('rememberMe')} color="primary" />} label="Remember Me" />
+    </form>
+  </Grid>
+</Grid>
+<Grid item xs={12}>
+  <Grid item>
+    <a href="#reset">Forgot your password?</a> (Use user:pass)
+  </Grid>
+</Grid>
+<Grid item xs={12}>
+  <Button onClick={() => this.signIn()} variant="contained" color="primary" style={{ marginBottom: 50 }}>
+    <Icon style={{ marginRight: 10 }}>security</Icon>
+    Sign In
+  </Button>
+</Grid>
